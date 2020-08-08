@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+typedef long long ll;
+using namespace std;
+int main() {
+    ll t;cin>>t;
+    string arb;
+    getline(cin,arb);
+    while(t--) {
+        string s; 
+        getline(cin,s);
+        map<char,ll> mp;
+        mp.insert({'{', 0});mp.insert({'}', 0});
+        mp.insert({'[', 1});mp.insert({']', 1});
+        mp.insert({'(', 2});mp.insert({')', 2});
+        deque<char> q;
+        for(ll i = 0; s[i] ; i++) {
+            if(mp.find(s[i]) == mp.end()) 
+                continue;
+            if(s[i] == '{' || s[i] == '[' || s[i] == '(')
+                q.push_back(s[i]); 
+            else
+                if(!mp.empty() && mp[q.back()] == mp[s[i]])
+                    q.pop_back();
+                else
+                    break;
+        }
+        if(q.empty())
+            cout<<"YES";
+        else 
+            cout<<"NO";
+        cout<<endl;
+    }
+    return 0;
+}
